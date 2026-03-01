@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UÁDJ | ESG Capital</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #1a1a1a;
+            --accent-color: #000000;
+            --nav-bg: #000000;
+            --nav-text: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* --- TIPOGRAFIA --- */
+        h1, h2, h3 { font-weight: 100; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; }
+        h1 { font-size: 4rem; letter-spacing: 8px; }
+        h2 { font-size: 2.2rem; margin-bottom: 40px; }
+        h3 { font-size: 1.5rem; margin-top: 40px; }
+        p { margin-bottom: 20px; font-size: 1.1rem; }
+        
+        ul { margin-top: 20px; margin-bottom: 30px; list-style-type: none; padding-left: 0; }
+        li { margin-bottom: 15px; position: relative; padding-left: 20px; font-size: 1.05rem; }
+        li::before { content: "—"; position: absolute; left: 0; color: var(--accent-color); font-weight: 100; }
+
+        a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
+        .link-destaque { border-bottom: 1px solid var(--accent-color); color: var(--text-color); font-weight: 400; }
+
+        /* --- NAVEGAÇÃO --- */
+        nav {
+            position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between;
+            align-items: center; padding: 20px 5vw; background: var(--nav-bg); color: var(--nav-text);
+            backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-links { display: flex; gap: 40px; align-items: center; }
+        .nav-links a { color: var(--nav-text); font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; }
+        .nav-links a:hover { border-bottom: 1px solid var(--nav-text); }
+
+        .lang-btn {
+            background: none; border: 1px solid var(--nav-text); padding: 8px 15px;
+            cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 400;
+            font-size: 0.8rem; letter-spacing: 1px; transition: 0.3s; color: var(--nav-text);
+        }
+        .lang-btn:hover { background: var(--nav-text); color: var(--nav-bg); }
+
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 5px; z-index: 1001; }
+        .bar { width: 25px; height: 2px; background-color: var(--nav-text); transition: all 0.3s ease; }
+
+        /* --- LAYOUT & SEÇÕES --- */
+        .container {
+            max-width: 1200px; margin: 0 auto; padding: 120px 5vw; min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+
+        #hero {
+            background: url('1000135210.png') no-repeat center center/cover;
+            height: 100vh; color: #ffffff; display: flex; align-items: flex-end;
+            padding: 80px 5vw; position: relative;
+        }
+        #hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%); z-index: 1;
+        }
+        .hero-content { position: relative; z-index: 2; max-width: 800px; }
+        .hero-content p { font-size: 1.5rem; font-weight: 300; line-height: 1.4; }
+
+        .split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 60px; }
+        .lex-image, .full-image { width: 100%; height: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.05); border-radius: 4px; }
+        
+        .full-width-section { margin-top: 40px; }
+        .image-spacing { margin-top: 60px; margin-bottom: 60px; }
+
+        #significado .container { text-align: center; max-width: 900px; }
+        .poetic-text { font-size: 1.3rem; line-height: 2; font-style: italic; color: #444; }
+
+        #contato .container { min-height: 60vh; text-align: center; justify-content: flex-start; }
+        .contact-info { font-size: 1.5rem; margin-top: 40px; }
+        .contact-info a { display: block; margin-bottom: 10px; font-weight: 100; border: none; color: var(--text-color); }
+
+        .rubrica-fixed {
+            position: fixed; bottom: 40px; right: 40px; width: 70px;
+            z-index: 999; opacity: 0.85; pointer-events: none;
+        }
+
+        .lang-en { display: none; }
+
+        /* --- ADAPTAÇÃO PARA CELULAR --- */
+        @media (max-width: 900px) {
+            h1 { font-size: 2.8rem; letter-spacing: 5px; }
+            h2 { font-size: 1.8rem; }
+            .container { padding: 100px 5vw; }
+            .split-layout { grid-template-columns: 1fr; gap: 40px; margin-bottom: 40px; }
+            .menu-toggle { display: flex; }
+            .nav-links {
+                position: fixed; top: 0; left: -100%; width: 100%; height: 100vh;
+                background: var(--nav-bg); flex-direction: column; justify-content: center;
+                gap: 30px; transition: 0.4s ease-in-out;
+            }
+            .nav-links.active { left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div style="font-weight: 400; letter-spacing: 4px; z-index: 1002; position: relative;">UÁDJ</div>
+        
+        <div class="nav-links" id="navMenu">
+            <a href="#paradoxo" class="lang-pt nav-item">O Paradoxo</a>
+            <a href="#paradoxo" class="lang-en nav-item">The Paradox</a>
+            
+            <a href="#lexnodes" class="lang-pt nav-item">LexNodes</a>
+            <a href="#lexnodes" class="lang-en nav-item">LexNodes</a>
+            
+            <a href="#significado" class="lang-pt nav-item">Significado</a>
+            <a href="#significado" class="lang-en nav-item">Meaning</a>
+            
+            <a href="#contato" class="lang-pt nav-item">Contato</a>
+            <a href="#contato" class="lang-en nav-item">Contact</a>
+
+            <button class="lang-btn" id="langToggle">EN / PT</button>
+        </div>
+
+        <div class="menu-toggle" id="mobileMenuBtn">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+
+    <img src="1000135211.jpg" alt="Logo Rubrica Uádj" class="rubrica-fixed">
+
+    <section id="hero">
+        <div class="hero-content">
+            <div class="lang-pt">
+                <h1>UÁDJ</h1>
+                <p>Desbloqueando o Capital ESG: A IA que transforma Complexidade Fiscal em Lucro de Impacto.</p>
+            </div>
+            <div class="lang-en">
+                <h1>UÁDJ</h1>
+                <p>Unlocking ESG Capital: The AI that transforms Fiscal Complexity into Impact Profit.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="paradoxo">
+        <div class="container">
+            <div class="lang-pt">
+                <h2>II. O Paradoxo da Sustentabilidade</h2>
+                <p>Atualmente, o cenário corporativo brasileiro vive um impasse. Cerca de 78% das empresas afirmam ter o desejo de adotar ou já adotar práticas ESG. Porém a sustentabilidade é frequentemente vista como um "mal necessário" — um custo inevitável e um risco de imagem que não oferece retorno financeiro direto. Existe uma desconexão profunda entre o desejo de inovar e a capacidade de executar.</p>
+                <p>A realidade dos números revela a dimensão desse desafio:</p>
+                <ul>
+                    <li><strong>Investimento Estéril:</strong> Movimentamos R$ 5,3 bilhões anuais em investimento corporativo ESG (Censo GIFE), mas a eficiência desse capital permanece baixa devido à ausência de estratégias rentáveis.</li>
+                    <li><strong>Déficit de Evidência:</strong> Apenas 20% das empresas brasileiras apresentam transparência real, publicando relatórios com evidências sólidas de suas práticas socioambientais (ABERJE & Beon ESG).</li>
+                    <li><strong>Oportunidade Perdida:</strong> Impressionantes 98,3% das empresas ignoram leis de incentivo que permitiriam retornar impostos já pagos para financiar seus próprios projetos sustentáveis (Governo Federal).</li>
+                </ul>
+                <p>O desconhecimento das normas e a burocracia de alta complexidade transformam o impacto em um fardo, quando ele deveria ser o seu maior motor de crescimento.</p>
+            </div>
+            <div class="lang-en">
+                <h2>II. The Sustainability Paradox</h2>
+                <p>Uádj is a Brazilian firm dedicated to the national market, specializing in the strategic use of Brazil’s robust yet vastly underutilized legal framework for fiscal financing. Currently, the Brazilian corporate landscape is at an impasse. About 78% of companies claim to have the desire to adopt or are already adopting ESG practices. However, sustainability is frequently seen as a "necessary evil"—an inevitable cost and an image risk that offers no direct financial return. There is a deep disconnection between the desire to innovate and the capacity to execute.</p>
+                <p>The reality of the numbers reveals the scale of this challenge:</p>
+                <ul>
+                    <li><strong>Sterile Investment:</strong> We move approximately $1.01 billion (USD) annually in corporate ESG investment (GIFE Census), yet the efficiency of this capital remains low due to the absence of profitable strategies.</li>
+                    <li><strong>Transparency Gap:</strong> Only 20% of Brazilian companies show real transparency, publishing reports with solid evidence of their socio-environmental practices (ABERJE & Beon ESG).</li>
+                    <li><strong>Lost Opportunity:</strong> An impressive 98.3% of companies ignore incentive laws that would allow them to recover paid taxes to fund their own sustainable projects (Federal Government).</li>
+                </ul>
+                <p>The lack of knowledge regarding regulations and high-complexity bureaucracy transforms impact into a burden, when it should be your greatest engine for growth.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="lexnodes">
+        <div class="container">
+            <div class="split-layout">
+                <img src="1000135208.jpg" alt="A Arquitetura LexNodes" class="lex-image">
+                <div>
+                    <div class="lang-pt">
+                        <h2>III. A Arquitetura LexNodes</h2>
+                        <p>Para semear soluções neste cenário, concebemos a Série LexNodes: uma frota de agentes especializados em inteligência jurídica e fiscal. Nossa tecnologia não apenas mapeia iniciativas; ela cria caminhos de custo zero, transformando a conformidade regulatória em ativos financeiros auditáveis.</p>
+                        
+                        <h3>LexNode Inova: O Mentor da Inovação</h3>
+                        <p>Nosso primeiro assistente é dedicado à Lei do Bem (Lei 11.196/05). Operando com alucinação zero e treinado em manuais oficiais (MCTI) e no Manual de Oslo, o Inova atua como um braço direito operacional para:</p>
+                        <ul>
+                            <li><strong>Diagnóstico Estratégico:</strong> Identificar o potencial de P&D oculto na sua cadeia produtiva.</li>
+                            <li><strong>Maximização de Retorno:</strong> Elevar o benefício fiscal base através de bônus por patentes e incentivos específicos.</li>
+                            <li><strong>Segurança e Blindagem:</strong> Redigir textos técnicos e auditar a higiene de dados para garantir o ROI socioambiental sem riscos de glosas fiscais.</li>
+                        </ul>
+                        <p style="margin-top: 30px;"><strong>Inscreva-se aqui para testar o LexNode Inova:</strong> <a href="https://tinyurl.com/lexnodeinova" target="_blank" class="link-destaque">tinyurl.com/lexnodeinova</a></p>
+                    </div>
+                    <div class="lang-en">
+                        <h2>III. The LexNodes Architecture</h2>
+                        <p>To sow solutions in this landscape, we conceived the LexNodes Series: a fleet of specialized agents in legal and fiscal intelligence. Our technology does more than just map initiatives; it creates zero-cost pathways, transforming regulatory compliance into auditable financial assets.</p>
+                        
+                        <h3>LexNode Inova: The Innovation Mentor</h3>
+                        <p>Our first assistant is dedicated to the "Lei do Bem" (Law 11.196/05). Operating with zero hallucination and trained on official manuals (MCTI) and the Oslo Manual, Inova acts as an operational right hand to:</p>
+                        <ul>
+                            <li><strong>Strategic Diagnosis:</strong> Identify hidden R&D potential within your production chain.</li>
+                            <li><strong>Maximizing Returns:</strong> Increase the base fiscal benefit through patent bonuses and specific regional incentives.</li>
+                            <li><strong>Security and Shielding:</strong> Draft technical reports and audit data hygiene to guarantee socio-environmental ROI without the risk of fiscal tax disallowances.</li>
+                        </ul>
+                        <p style="margin-top: 30px;"><strong>Register here to test LexNode Inova:</strong> <a href="https://tinyurl.com/lexnodeinova" target="_blank" class="link-destaque">tinyurl.com/lexnodeinova</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="full-width-section">
+                <div class="lang-pt">
+                    <h3>Expansão Nacional</h3>
+                    <p>O LexNode Inova é a semente de um ecossistema maior. Estamos escalando nossa inteligência para abranger incentivos locais em todas as unidades federativas e municípios do país. Onde houver uma oportunidade de incentivo subaproveitada — seja ela municipal ou estadual — haverá um LexNode pronto para viabilizar o seu florescimento.</p>
+                </div>
+                <div class="lang-en">
+                    <h3>National Expansion</h3>
+                    <p>LexNode Inova is the seed of a larger ecosystem. We are scaling our intelligence to cover local incentives across all Brazilian states and municipalities. Wherever there is an underutilized incentive opportunity—be it municipal or state-level—a LexNode will be ready to enable its flowering.</p>
+                </div>
+            </div>
+
+            <div class="image-spacing">
+                <img src="1000135347.jpg" alt="Estatísticas ESG Brasil" class="full-image">
+            </div>
+        </div>
+    </section>
+
+    <section id="significado">
+        <div class="container">
+            <div class="lang-pt">
+                <h2>IV. O Significado</h2>
+                <p class="poetic-text">Em um cenário de aridez de recursos e desertificação de ecossistemas, nossas ferramentas foram concebidas para serem como a cheia de um rio, uma força que recua, deixando o solo fértil para que a vida possa brotar novamente. No Egito antigo, havia uma expressão que descrevia o resultado desse movimento, Uádj.</p>
+                <p class="poetic-text">Era o nome do verde vibrante da vegetação renascida, a promessa visual de vida. Mas era também o termo para o papiro que brotava desse solo fértil, matéria-prima de uma tecnologia que mudou o rumo da história. Acima de tudo, Uádj era o próprio conceito de florescimento e regeneração. Hoje, ele é o nosso nome, uma ferramenta para cultivar um novo ciclo de vida.</p>
+            </div>
+            <div class="lang-en">
+                <h2>IV. The Meaning</h2>
+                <p class="poetic-text">In a landscape of resource scarcity and ecosystem desertification, our tools were conceived to be like the flooding of a river—a force that recedes, leaving behind fertile soil so that life may sprout again. In Ancient Egypt, there was an expression that described the result of this movement: Uádj.</p>
+                <p class="poetic-text">It was the name for the vibrant green of reborn vegetation, the visual promise of life. But it was also the term for the papyrus that sprouted from that fertile soil—the raw material for a technology that changed the course of history. Above all, Uádj was the very concept of flourishing and regeneration. Today, it is our name: a tool to cultivate a new cycle of life.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="nova-imagem">
+        <div class="container" style="min-height: auto; padding-top: 0; padding-bottom: 50px;">
+            <img src="nova_imagem.png" alt="Energia Uádj" class="full-image">
+        </div>
+    </section>
+
+    <section id="contato">
+        <div class="container" style="padding-top: 50px;">
+            <div class="lang-pt">
+                <h2>V. Contato</h2>
+                <p>Estamos prontos para ajudar sua empresa a cultivar resultados reais.</p>
+            </div>
+            <div class="lang-en">
+                <h2>V. Contact</h2>
+                <p>We are ready to help your company cultivate real results.</p>
+            </div>
+            
+            <div class="contact-info">
+                <a href="mailto:uadjesg@gmail.com">E-mail: uadjesg@gmail.com</a>
+                <a href="tel:+5511989144054">Telefone: +55 11 98914-4054</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langBtn = document.getElementById('langToggle');
+            const ptElements = document.querySelectorAll('.lang-pt');
+            const enElements = document.querySelectorAll('.lang-en');
+            let currentLang = 'pt';
+
+            langBtn.addEventListener('click', () => {
+                if (currentLang === 'pt') {
+                    ptElements.forEach(el => el.style.display = 'none');
+                    enElements.forEach(el => el.style.display = 'block');
+                    currentLang = 'en';
+                    langBtn.innerText = 'PT / EN';
+                } else {
+                    enElements.forEach(el => el.style.display = 'none');
+                    ptElements.forEach(el => el.style.display = 'block');
+                    currentLang = 'pt';
+                    langBtn.innerText = 'EN / PT';
+                }
+            });
+
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
+            const navItems = document.querySelectorAll('.nav-item');
+
+            mobileMenuBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); });
+            navItems.forEach(item => {
+                item.addEventListener('click', () => { navMenu.classList.remove('active'); });
+            });
+        });
+    </script>
+</body>
+</html>
